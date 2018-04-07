@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Job</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ job.id }}</td>
+            </tr>
+            <tr>
+                <th>Customer</th>
+                <td>{{ job.customer }}</td>
+            </tr>
+            <tr>
+                <th>Primerrate</th>
+                <td>{{ job.primerRate }}</td>
+            </tr>
+            <tr>
+                <th>Toprate</th>
+                <td>{{ job.topRate }}</td>
+            </tr>
+            <tr>
+                <th>Costm2</th>
+                <td>{{ job.costM2 }}</td>
+            </tr>
+            <tr>
+                <th>Costlinm</th>
+                <td>{{ job.costLinM }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('job_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('job_edit', { 'id': job.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

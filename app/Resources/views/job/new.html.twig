@@ -1,0 +1,52 @@
+{% extends 'AvanzuAdminThemeBundle:Default:form.html.twig' %}
+{% block avanzu_page_title %} Job  {% endblock %}
+{% block avanzu_page_subtitle %} Creation {% endblock %}
+
+{% block avanzu_page_content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            {% block list %}
+            {% endblock list %}
+
+
+
+        </div>
+        <div class="col-md-4">
+
+        </div>
+        <div class="col-md-4">
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+
+
+            {% embed 'AvanzuAdminThemeBundle:Widgets:box-widget.html.twig' %}
+                {% block box_before %}{{ form_start(form) }}{% endblock %}
+                {% block box_title %}Customer Job Creation{% endblock %}
+                {% block box_body %}{{ form_widget(form) }}{% endblock %}
+                {% block box_footer %}
+                    <a href="{{ path('job_index') }}" type="reset" class="btn btn-warning "><i class="fa fa-times"></i> Cancel</a>
+                    <div class="pull-right">
+
+                        <button type="submit" class="btn btn-primary "><i class="fa fa-check-square"></i> Submit</button>
+                    </div>
+                {% endblock %}
+
+                {% block box_after %}{{ form_end(form)}}{% endblock %}
+            {% endembed %}
+
+
+
+        </div>
+        <div class="col-md-6">
+
+        </div>
+    </div>
+
+
+{% endblock %}
+

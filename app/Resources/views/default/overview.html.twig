@@ -1,0 +1,110 @@
+{% extends 'AvanzuAdminThemeBundle:layout:default-layout.html.twig' %}
+{% block avanzu_page_title %}Overview{% endblock %}
+{% block avanzu_page_content %}
+
+    <div class="row">
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-green">
+                <div class="inner">
+                    <h3>{{ orders|length }}  </h3>
+
+                    <p>Pending Orders</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-sticky-note-o"></i>
+                </div>
+                <a class="small-box-footer" href="{{ path('orders_index') }}">More info <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box  bg-red">
+                <div class="inner">
+
+                    <h3>{{ butcheryItems|length }}</h3>
+
+                    <p>Items to be Butchered</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-cutlery"></i>
+                </div>
+                <a class="small-box-footer" href="{{ path('butchery_index') }}">More info <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-yellow">
+                <div class="inner">
+                    <h3>{{ packingItems|length }}</h3>
+
+                    <p>Items to be Packed</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-gift"></i>
+                </div>
+                <a class="small-box-footer" href="{{ path('packing_index') }}">More info <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-aqua">
+                <div class="inner">
+                    <h3>{{ orderedItems|length }}</h3>
+
+                    <p>Items from Stock</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-cubes"></i>
+                </div>
+                <a class="small-box-footer" href="{{ path('orders_index') }}">More info <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+    </div>
+    {% for run in runs %}
+        {% if loop.index == 1 or loop.index == 13 %}
+            <div class="row">
+        {% endif %}
+                <div class="col-md-1">
+                    <!-- Widget: user widget style 1 -->
+                    <div class="box box-widget widget-user-2">
+                        <!-- Add the bg color to the header using any of the bg-* classes -->
+                        <div class="widget-user-header bg-blue" style="height: 100px;">
+                            <!-- /.widget-user-image -->
+                            <h5 class="">{{ run['run'].name }}</h5>
+                            {#<h5 class="">Leading</h5>#}
+                        </div>
+                        <div class="box-body no-padding">
+                            <ul class="nav nav-stacked">
+                                <li><a href="{{ path('orders_index') }}">Orders {% if run['orders'] %}<span class="pull-right badge bg-green" style="font-size: large">{{ run['orders']|length }}</span>{% endif %}</a></li>
+                                <li><a href="{{ path('butchery_index') }}">Butchery {% if run['butcheryItems'] %} <span class="pull-right badge bg-red" style="font-size: large">{{ run['butcheryItems']|length }}</span>{% endif %}</a></li>
+                                <li><a href="{{ path('packing_index') }}">Packing {% if run['packedItems'] %}<span class="pull-right badge bg-orange" style="font-size: large">{{ run['packedItems']|length }}</span>{% endif %}</a></li>
+                                <li><a href="{{ path('orders_index') }}">Stock {% if run['orderedItems'] %} <span class="pull-right badge bg-aqua" style="font-size: large">{{ run['orderedItems']|length }}</span>{% endif %}</a></li>
+                                <li><a href="{{ path('completed_index') }}">Completed {% if run['completed'] %} <span class="pull-right badge bg-black" style="font-size: large">{{ run['completed']|length }}</span>{% endif %}</a></li>
+                            </ul>
+                        </div>
+                        <div class="box-footer text-center">
+                            <a href="{{ path('runs_pdf',{'id': run['run'].id }) }}" class="btn btn-success btn-sm">Generate Run</a>
+                        </div>
+                    </div>
+                    <!-- /.widget-user -->
+                </div>
+        {% if loop.index == 12 or loop.last %}
+            </div>
+        {% endif %}
+        {% endfor %}
+{% endblock %}
+{% block avanzu_javascripts %}
+    {{ parent() }}
+    <script>
+        setInterval(function() {
+            window.location.reload();
+        }, 60000);
+    </script>
+
+
+{% endblock %}

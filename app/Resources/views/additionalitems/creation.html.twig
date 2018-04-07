@@ -1,0 +1,153 @@
+{% extends 'AvanzuAdminThemeBundle:Default:form.html.twig' %}
+
+{% block avanzu_page_title %} Additional Items Creation {% endblock %}
+{% block avanzu_page_subtitle %}  {% endblock %}
+
+{% block avanzu_page_content %}
+
+    <a href="{{ path('job_overview',{'id':job.id}) }}" class="btn btn-primary"  ><i class="fa fa-arrow-left"></i> Back to the Job</a>
+    <div style="padding-bottom: 15px"></div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-danger">
+                <section class="content">
+                    <table id="dataTableID" class="table table-hover dataTable">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Description</th>
+                            <th>Type</th>
+                            <th>Rate</th>
+                            <th>Multi</th>
+                            <th>Total</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for additionalItem in additionalItems %}
+                            <tr>
+                                <td><a href="{{ path('additionalitems_show', { 'id': additionalItem.id }) }}">{{ additionalItem.id }}</a></td>
+                                <td>{{ additionalItem.description }}</td>
+                                <td>{{ additionalItem.type }}</td>
+                                <td>{{ additionalItem.rate }}</td>
+                                <td>{{ additionalItem.multi }}</td>
+                                <td>{{ additionalItem.total }}</td>
+                                <td>
+                                    <ul>
+                                        <li>
+                                            <a href="{{ path('additionalitems_show', { 'id': additionalItem.id }) }}">show</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('additionalitems_edit', { 'id': additionalItem.id }) }}">edit</a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+
+
+
+        </div>
+        <div class="col-md-4">
+
+        </div>
+        <div class="col-md-4">
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+
+
+            {% embed 'AvanzuAdminThemeBundle:Widgets:box-widget.html.twig' %}
+                {% block box_before %}{{ form_start(form) }}{% endblock %}
+                {% block box_title %}Form theme{% endblock %}
+                {% block box_body %}{{ form_widget(form) }}{% endblock %}
+                {% block box_footer %}
+                    <a href="{{ path('job_overview',{'id':job.id}) }}" type="reset" class="btn btn-warning "><i class="fa fa-times"></i> Cancel</a>
+                    <div class="pull-right">
+
+                        <button type="submit" class="btn btn-primary "><i class="fa fa-check-square"></i> Submit</button>
+                    </div>
+                {% endblock %}
+
+                {% block box_after %}{{ form_end(form)}}{% endblock %}
+            {% endembed %}
+
+
+
+        </div>
+        <div class="col-md-6">
+
+        </div>
+    </div>
+
+
+{% endblock %}
+{#{% block avanzu_page_title %}#}
+    {#Areas#}
+    {#{{ dump(location) }}#}
+{#{% endblock %}#}
+{#{% block avanzu_page_content %}#}
+
+{#<div class="row">#}
+    {#<div class="col-md-12">#}
+
+        {#<div class="box box-info">#}
+            {#<div class="box-header with-border">#}
+                {#<i class="fa fa-houzz" aria-hidden="true"></i>#}
+                {#<h3 class="box-title">{{ location.name }}</h3>#}
+            {#</div>#}
+            {#{{ form_start(form) }}#}
+            {#<div class="box-body">#}
+                {#{{ form_widget(form) }}#}
+            {#</div>#}
+            {#<div class="box-footer">#}
+                {#<input type="submit" value="Create" class="btn btn-success pull-right" />#}
+            {#</div>#}
+            {#{{ form_end(form) }}#}
+        {#</div>#}
+    {#</div>#}
+{#</div>#}
+{#{% endblock %}#}
+
+
+{% block avanzu_javascripts_inline %}
+    <script src="{{ asset('js/bootstrap_bc-bootstrap-collection_13.js') }}"></script>
+    <script>
+        $(function () {
+            console.log('augmenting form...');
+
+            $('input').iCheck({
+                checkboxClass: 'checkbox',
+                radioClass: 'iradio_square-blue',
+                increaseArea: '20%' // optional
+            });
+            $('select').select2();
+            $('[data-datepicker="on"]').datepicker({autoclose: true});
+            $('[data-timepicker="on"]').timepicker();
+        });
+
+        $(document).ready(function() {
+            $('#dataTableID').DataTable(
+                    {
+                        "iDisplayLength": 10,
+                        "order": [[ 0, "asc" ]],
+                        responsive: true,
+                        "drawCallback": function( settings ) {
+                            if(!$("#dataTableID").parent().hasClass("table-responsive")){
+                                $("#dataTableID").wrap("<div class='table-responsive'></div>");
+                            }
+                        }
+                    }
+            );
+        });
+    </script>
+
+{% endblock %}

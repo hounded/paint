@@ -1,0 +1,40 @@
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block avanzu_login_form %}
+
+
+            <p class="login-box-msg">Sign up to start using session</p>
+            {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+
+                <div class="form-group has-feedback">
+                    {{ form_widget(form.username,{ 'attr': {'placeholder': 'Username','class':'form-control'}}) }}
+                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    {{ form_widget(form.email,{ 'attr': {'placeholder': 'E-mail','class':'form-control'}}) }}
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    {{ form_widget(form.plainPassword.first,{ 'attr': {'placeholder': 'Password','class':'form-control'}}) }}
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    {{ form_widget(form.plainPassword.second,{ 'attr': {'placeholder': 'Confirm Password','class':'form-control'}}) }}
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+                <div class="row">
+                    <div class="col-xs-8">
+
+                    </div><!-- /.col -->
+                    <div class="col-xs-4">
+                        <button type="submit" id="_submit"  name="_submit" class="btn btn-primary btn-block btn-flat"  value="{{ 'registration.submit'|trans }}">Register</button>
+                    </div><!-- /.col -->
+                </div>
+
+            {{ form_end(form) }}
+
+
+
+
+{% endblock %}

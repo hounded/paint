@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Additionalitem</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ additionalItem.id }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ additionalItem.description }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ additionalItem.type }}</td>
+            </tr>
+            <tr>
+                <th>Rate</th>
+                <td>{{ additionalItem.rate }}</td>
+            </tr>
+            <tr>
+                <th>Multi</th>
+                <td>{{ additionalItem.multi }}</td>
+            </tr>
+            <tr>
+                <th>Total</th>
+                <td>{{ additionalItem.total }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('additionalitems_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('additionalitems_edit', { 'id': additionalItem.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

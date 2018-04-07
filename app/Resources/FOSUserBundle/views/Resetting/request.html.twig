@@ -1,0 +1,19 @@
+
+{% extends 'AvanzuAdminThemeBundle:layout:login-layout.html.twig' %}
+{% block avanzu_login_box_msg %}
+    {% if invalid_username is defined %}
+        <p>{{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}) }}</p>
+    {% endif %}
+{% endblock %}
+{% block avanzu_login_form %}
+    {% include "FOSUserBundle:Resetting:request_content.html.twig" %}
+{% endblock avanzu_login_form %}
+{% block avanzu_login_social_auth %}
+
+{% endblock %}
+
+{% block avanzu_login_actions %}
+    <a  href="{{ path('fos_user_security_login') }}"  class="text-center">Login</a><br>
+    <a href="{{ path("fos_user_registration_register") }}">Register a new membership</a>
+
+{% endblock %}

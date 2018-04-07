@@ -1,0 +1,32 @@
+{% extends 'templates/table.html.twig' %}
+{% block head %}
+    <tr>
+        <th>User</th>
+        {% for role in roles %}
+            <th>{{  role}}</th>
+        {% endfor %}
+    </tr>
+{% endblock head %}
+
+{% block body %}
+    {% for user in users %}
+        <tr>
+            <td> {{user.username  }}</td>
+            {% for role in roles %}
+            <td>
+                {% if role in user.roles %}
+                    <form action="{{ path('admin_remove',{'id':user.id}) }}" method="post" name="overview">
+                        <input type="hidden" name="role" value={{ role }} />
+                        <button type="submit" class="btn btn-danger btn-xs"  value="demote">demote </button>
+                    </form>
+                {% else %}
+                    <form action="{{ path('admin_add',{'id':user.id}) }}" method="post" name="overview">
+                        <input type="hidden" name="role" value={{ role }} />
+                        <button type="submit" class="btn btn-success btn-xs"  value="demote">promote </button>
+                    </form>
+                {% endif %}
+            </td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+{% endblock body %}

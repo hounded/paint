@@ -1,0 +1,46 @@
+{% extends 'AvanzuAdminThemeBundle:Default:form.html.twig' %}
+{% block avanzu_page_title %}DataTable{% endblock %}
+{% block avanzu_page_content %}
+    {% block new %}
+    {% endblock new %}
+        <div class="box box-danger">
+             <section class="content">
+                <table id="dataTableID" class="table table-hover dataTable">
+                    <thead>
+                    {% block head %}
+
+                    {% endblock head %}
+                    </thead>
+                    <tbody>
+                    {% block body %}
+
+                    {% endblock body %}
+                    </tbody>
+                </table>
+             </section>
+        </div>
+
+
+{% endblock %}
+{% block avanzu_javascripts %}
+    {{ parent() }}
+    <script charset="utf-8" type="text/javascript">
+        $(document).ready(function() {
+            $('#dataTableID').DataTable(
+                {
+                    "iDisplayLength": 10,
+                    "order": [[ 0, "asc" ]],
+                    responsive: true,
+                    "drawCallback": function( settings ) {
+                        if(!$("#dataTableID").parent().hasClass("table-responsive")){
+                            $("#dataTableID").wrap("<div class='table-responsive'></div>");
+                        }
+                    }
+                }
+            );
+        });
+    </script>
+
+
+
+{% endblock %}

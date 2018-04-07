@@ -1,0 +1,55 @@
+{% extends 'AvanzuAdminThemeBundle:layout:default-layout.html.twig' %}
+
+{% block avanzu_page_title %}
+    Areas
+    {{ dump(job) }}
+{% endblock %}
+{% block avanzu_page_content %}
+    <h1>Area list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Height</th>
+                <th>Width</th>
+                <th>Num1</th>
+                <th>Num2</th>
+                <th>Type</th>
+                <th>Area</th>
+                <th>Location</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for surface in surfaces %}
+            <tr>
+                <td><a href="{{ path('surface_show', { 'id': surface.id }) }}">{{ surface.id }}</a></td>
+                <td>{{ surface.height }}</td>
+                <td>{{ surface.width }}</td>
+                <td>{{ surface.num1 }}</td>
+                <td>{{ surface.num2 }}</td>
+                <td>{{ surface.type }}</td>
+                <td>{{ surface.surface }}</td>
+                <td>{{ surface.location }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('surface_show', { 'id': surface.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('surface_edit', { 'id': surface.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('surface_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

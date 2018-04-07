@@ -1,0 +1,128 @@
+{% extends 'AvanzuAdminThemeBundle:Default:form.html.twig' %}
+
+{% block avanzu_page_title %} Surface Creation {% endblock %}
+{% block avanzu_page_subtitle %} Multi Surface Creation {% endblock %}
+
+{% block avanzu_page_content %}
+
+    <a href="{{ path('job_overview',{'id':job.id}) }}" class="btn btn-primary"  ><i class="fa fa-arrow-left"></i> Back to the Job</a>
+    <div style="padding-bottom: 15px">
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-danger">
+                <section class="content">
+                    <table id="dataTableID" class="table table-hover dataTable">
+                        <thead>
+                        <tr>
+                            {#<th>Id</th>#}
+                            <th>Surface</th>
+                            <th>Height</th>
+                            <th>Width</th>
+                            <th>Num1</th>
+                            <th>Type</th>
+                            <th>Rate</th>
+                            <th>Cost</th>
+                            <th>Area</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for surface in surfaces %}
+                            <tr>
+                                {#<td><a href="{{ path('surface_show', { 'id': surface.id }) }}">{{ surface.id }}</a></td>#}
+                                <td>{{ surface.surfaceName }}</td>
+                                <td>{{ surface.height }}</td>
+                                <td>{{ surface.width }}</td>
+                                <td>{{ surface.num1 }}</td>
+                                <td>{{ surface.type }}</td>
+                                <td>{{ surface.rate }}</td>
+                                <td>{{ surface.surfaceTotal }}</td>
+                                <td>{{ surface.area }}</td>
+                                <td>
+                                    <a href="{{ path('surface_edit', { 'id': surface.id }) }}" class="btn btn-primary"><i class="fa fa-pencil"></i> </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+        </div>
+        <div class="col-md-4">
+
+        </div>
+        <div class="col-md-4">
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            {% embed 'AvanzuAdminThemeBundle:Widgets:box-widget.html.twig' %}
+                {% block box_before %}{{ form_start(form) }}{% endblock %}
+                {% block box_title %}Surface Creation{% endblock %}
+                {% block box_body %}{{ form_widget(form) }}{% endblock %}
+                {% block box_footer %}
+                    <a href="{{ path('area_creation',{'id':area.id}) }}" type="reset" class="btn btn-warning "><i class="fa fa-times"></i> Cancel</a>
+                    <div class="pull-right">
+                        <button type="submit" class="btn btn-primary "><i class="fa fa-check-square"></i> Submit</button>
+                    </div>
+                {% endblock %}
+                {% block box_after %}{{ form_end(form)}}{% endblock %}
+            {% endembed %}
+        </div>
+        <div class="col-md-6">
+
+        </div>
+    </div>
+
+
+{% endblock %}
+{#{% block avanzu_page_title %}#}
+    {#Areas#}
+    {#{{ dump(area) }}#}
+{#{% endblock %}#}
+{#{% block avanzu_page_content %}#}
+
+{#<div class="row">#}
+    {#<div class="col-md-12">#}
+
+        {#<div class="box box-info">#}
+            {#<div class="box-header with-border">#}
+                {#<i class="fa fa-houzz" aria-hidden="true"></i>#}
+                {#<h3 class="box-title">{{ area.name }}</h3>#}
+            {#</div>#}
+            {#{{ form_start(form) }}#}
+            {#<div class="box-body">#}
+                {#{{ form_widget(form) }}#}
+            {#</div>#}
+            {#<div class="box-footer">#}
+                {#<input type="submit" value="Create" class="btn btn-success pull-right" />#}
+            {#</div>#}
+            {#{{ form_end(form) }}#}
+        {#</div>#}
+    {#</div>#}
+{#</div>#}
+{#{% endblock %}#}
+
+
+{% block avanzu_javascripts_inline %}
+    <script src="{{ asset('js/bootstrap_bc-bootstrap-collection_13.js') }}"></script>
+    <script>
+        $(function () {
+            console.log('augmenting form...');
+
+            $('input').iCheck({
+                checkboxClass: 'checkbox',
+                radioClass: 'iradio_square-blue',
+                increaseArea: '20%' // optional
+            });
+            $('select').select2();
+            $('[data-datepicker="on"]').datepicker({autoclose: true});
+            $('[data-timepicker="on"]').timepicker();
+        });
+    </script>
+
+{% endblock %}

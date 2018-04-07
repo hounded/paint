@@ -1,0 +1,463 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * OrderItemsStanding
+ *
+ * @ORM\Table(name="order_items_standing")
+ * @ORM\Entity()
+ */
+class OrderItemsStanding
+{
+
+    const ORDERED       = 'ordered';
+    const BUTCHERED     = 'butchery';
+    const PACKED        = 'packed';
+    const COMPLETED     = 'completed';
+    const BACKORDER     = 'backorder';
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="OrdersStanding", inversedBy="orderItemsStanding")
+     * @ORM\JoinColumn(name="ordersStanding", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $ordersStanding;
+
+
+    /**
+     * @Assert\NotNull()
+     * @ORM\ManyToOne(targetEntity="Item", inversedBy="orderItemsStanding")
+     * @ORM\JoinColumn(name="item", referencedColumnName="id")
+     */
+    private $item;
+
+
+    /**
+     * @Assert\Type(
+     *     type="numeric",
+     *     message="The value {{ value }} is not a valid {{ type }}."
+     * )
+     * @var float
+     *
+     * @ORM\Column(name="amount", type="float",nullable=true)
+     */
+    private $each;
+
+    /**
+     * @Assert\Type(
+     *     type="numeric",
+     *     message="The value {{ value }} is not a valid {{ type }}."
+     * )
+     * @var float
+     *
+     * @ORM\Column(name="kg", type="float",nullable=true)
+     */
+    private $kg;
+
+    /**
+     * @Assert\Type(
+     *     type="numeric",
+     *     message="The value {{ value }} is not a valid {{ type }}."
+     * )
+     * @var float
+     *
+     * @ORM\Column(name="ctn", type="float",nullable=true)
+     */
+    private $ctn;
+
+    /**
+     * @Assert\Type(
+     *     type="numeric",
+     *     message="The value {{ value }} is not a valid {{ type }}."
+     * )
+     * @var float
+     *
+     * @ORM\Column(name="packet", type="float",nullable=true)
+     */
+    private $packet;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="inventoryType", type="string", length=255,nullable=false)
+     */
+    private $inventoryType;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="notes", type="string", length=1000, nullable=true)
+     */
+    private $notes;
+
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+
+
+    /**
+     * Set item
+     *
+     * @param \AppBundle\Entity\Item $item
+     *
+     * @return OrderItems
+     */
+    public function setItem(\AppBundle\Entity\Item $item = null)
+    {
+        $this->item = $item;
+
+        return $this;
+    }
+
+    /**
+     * Get item
+     *
+     * @return \AppBundle\Entity\Item
+     */
+    public function getItem()
+    {
+        return $this->item;
+    }
+
+
+
+    /**
+     * Set kg
+     *
+     * @param float $kg
+     *
+     * @return OrderItems
+     */
+    public function setKg($kg)
+    {
+        $this->kg = $kg;
+
+        return $this;
+    }
+
+    /**
+     * Get kg
+     *
+     * @return float
+     */
+    public function getKg()
+    {
+        return $this->kg;
+    }
+
+    /**
+     * Set customer
+     *
+     * @param \AppBundle\Entity\Customers $customer
+     *
+     * @return OrderItems
+     */
+    public function setCustomer(\AppBundle\Entity\Customers $customer = null)
+    {
+        $this->customer = $customer;
+
+        return $this;
+    }
+
+    /**
+     * Get customer
+     *
+     * @return \AppBundle\Entity\Customers
+     */
+    public function getCustomer()
+    {
+        return $this->customer;
+    }
+
+
+    /**
+     * Set orderedUnits
+     *
+     * @param float $orderedUnits
+     *
+     * @return OrderItems
+     */
+    public function setOrderedUnits($orderedUnits)
+    {
+        $this->orderedUnits = $orderedUnits;
+
+        return $this;
+    }
+
+    /**
+     * Get orderedUnits
+     *
+     * @return float
+     */
+    public function getOrderedUnits()
+    {
+        return $this->orderedUnits;
+    }
+
+    /**
+     * Set backOrder
+     *
+     * @param boolean $backOrder
+     *
+     * @return OrderItems
+     */
+    public function setBackOrder($backOrder)
+    {
+        $this->backOrder = $backOrder;
+
+        return $this;
+    }
+
+    /**
+     * Get backOrder
+     *
+     * @return boolean
+     */
+    public function getBackOrder()
+    {
+        return $this->backOrder;
+    }
+
+    /**
+     * Set inventoryType
+     *
+     * @param string $inventoryType
+     *
+     * @return OrderItems
+     */
+    public function setInventoryType($inventoryType)
+    {
+        $this->inventoryType = $inventoryType;
+
+        return $this;
+    }
+
+    /**
+     * Get inventoryType
+     *
+     * @return string
+     */
+    public function getInventoryType()
+    {
+        return $this->inventoryType;
+    }
+
+    /**
+     * Set notes
+     *
+     * @param string $notes
+     *
+     * @return OrderItems
+     */
+    public function setNotes($notes)
+    {
+        $this->notes = $notes;
+
+        return $this;
+    }
+
+    /**
+     * Get notes
+     *
+     * @return string
+     */
+    public function getNotes()
+    {
+        return $this->notes;
+    }
+
+    /**
+     * Set status
+     *
+     * @param boolean $status
+     *
+     * @return OrderItems
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return boolean
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+
+
+    /**
+     * Set ctn
+     *
+     * @param float $ctn
+     *
+     * @return OrderItems
+     */
+    public function setCtn($ctn)
+    {
+        $this->ctn = $ctn;
+
+        return $this;
+    }
+
+    /**
+     * Get ctn
+     *
+     * @return float
+     */
+    public function getCtn()
+    {
+        return $this->ctn;
+    }
+
+
+
+    /**
+     * Set each
+     *
+     * @param float $each
+     *
+     * @return OrderItems
+     */
+    public function setEach($each)
+    {
+        $this->each = $each;
+
+        return $this;
+    }
+
+    /**
+     * Get each
+     *
+     * @return float
+     */
+    public function getEach()
+    {
+        return $this->each;
+    }
+
+    /**
+     * Set packet
+     *
+     * @param float $packet
+     *
+     * @return OrderItems
+     */
+    public function setPacket($packet)
+    {
+        $this->packet = $packet;
+
+        return $this;
+    }
+
+    /**
+     * Get packet
+     *
+     * @return float
+     */
+    public function getPacket()
+    {
+        return $this->packet;
+    }
+
+    /**
+     * Set historyButchery
+     *
+     * @param boolean $historyButchery
+     *
+     * @return OrderItems
+     */
+    public function setHistoryButchery($historyButchery)
+    {
+        $this->historyButchery = $historyButchery;
+
+        return $this;
+    }
+
+    /**
+     * Get historyButchery
+     *
+     * @return boolean
+     */
+    public function getHistoryButchery()
+    {
+        return $this->historyButchery;
+    }
+
+    /**
+     * Set historyPacking
+     *
+     * @param boolean $historyPacking
+     *
+     * @return OrderItems
+     */
+    public function setHistoryPacking($historyPacking)
+    {
+        $this->historyPacking = $historyPacking;
+
+        return $this;
+    }
+
+    /**
+     * Get historyPacking
+     *
+     * @return boolean
+     */
+    public function getHistoryPacking()
+    {
+        return $this->historyPacking;
+    }
+
+    /**
+     * Set ordersStanding
+     *
+     * @param \AppBundle\Entity\OrdersStanding $ordersStanding
+     *
+     * @return OrderItemsStanding
+     */
+    public function setOrdersStanding(\AppBundle\Entity\OrdersStanding $ordersStanding = null)
+    {
+        $this->ordersStanding = $ordersStanding;
+
+        return $this;
+    }
+
+    /**
+     * Get ordersStanding
+     *
+     * @return \AppBundle\Entity\OrdersStanding
+     */
+    public function getOrdersStanding()
+    {
+        return $this->ordersStanding;
+    }
+}

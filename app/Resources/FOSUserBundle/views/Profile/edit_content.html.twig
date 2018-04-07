@@ -1,0 +1,64 @@
+
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+
+<div id="wrapper">
+    {#<div class="row">#}
+        {#<div class="col-lg-6 col-xs-6">#}
+            {#<div class="small-box bg-green">#}
+                {#<div class="inner">#}
+
+                    {#<p>Traffic Audits</p>#}
+                {#</div>#}
+                {#<div class="icon">#}
+                    {#<i class="fa fa-road"></i>#}
+                {#</div>#}
+                {#<a class="small-box-footer" href="#">#}
+                    {#More info#}
+                    {#<i class="fa fa-arrow-circle-right"></i>#}
+                {#</a>#}
+            {#</div>#}
+        {#</div>#}
+        {#<div class="col-lg-6 col-xs-6">#}
+            {#<div class="small-box bg-yellow">#}
+                {#<div class="inner">#}
+
+                    {#<p>Safety Audits</p>#}
+                {#</div>#}
+                {#<div class="icon">#}
+                    {#<i class="fa fa-medkit"></i>#}
+                {#</div>#}
+                {#<a class="small-box-footer" href="#">#}
+                    {#More info#}
+                    {#<i class="fa fa-arrow-circle-right"></i>#}
+                {#</a>#}
+            {#</div>#}
+        {#</div>#}
+
+
+    {#</div>#}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-user"> </i><span class="text-capitalize"> Editing Your Details </span>
+                    {#<a href="{{ path('fos_user_profile_edit') }}" class="pull-right" > <i class="fa fa-pencil"> </i></a>#}
+                </div>
+                <div class="panel-body">
+
+                    {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
+                    {{ form_row(form.username) }}
+                    {{ form_row(form.email) }}
+                    {{ form_widget(form) }}
+                    <div>
+                        <input type="submit" class="btn btn-success" value="{{ 'profile.edit.submit'|trans }}" />
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

@@ -1,0 +1,363 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Surface
+ *
+ * @ORM\Table(name="surface")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\SurfaceRepository")
+ */
+class Surface
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="SurfaceName", inversedBy="surface")
+     * @ORM\JoinColumn(name="surfaceName", referencedColumnName="id",nullable=true)
+     */
+    private $surfaceName;
+
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="Height", type="float",nullable=true)
+     */
+    private $height;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="Width", type="float",nullable=true)
+     */
+    private $width;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="Num1", type="float",nullable=true)
+     */
+    private $num1 = 1;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Type", type="string", length=255,nullable=true)
+     */
+    private $type;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="deduction", type="string",length=255)
+     */
+    private $deduction;
+
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Area", inversedBy="surface")
+     * @ORM\JoinColumn(name="area", referencedColumnName="id",nullable=true)
+     */
+    private $area;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="Rate", type="float",nullable=true)
+     */
+    private $rate;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="SurfaceTotalArea", type="float",nullable=true)
+     */
+    private $surfaceTotalArea;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="SurfaceTotal", type="float",nullable=true)
+     */
+    private $surfaceTotal;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="surface")
+     * @ORM\JoinColumn(name="user", referencedColumnName="id",nullable=true)
+     */
+    private $user;
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+
+    /**
+     * Set height
+     *
+     * @param float $height
+     *
+     * @return Surface
+     */
+    public function setHeight($height)
+    {
+        $this->height = $height;
+
+        return $this;
+    }
+
+    /**
+     * Get height
+     *
+     * @return float
+     */
+    public function getHeight()
+    {
+        return $this->height;
+    }
+
+    /**
+     * Set width
+     *
+     * @param float $width
+     *
+     * @return Surface
+     */
+    public function setWidth($width)
+    {
+        $this->width = $width;
+
+        return $this;
+    }
+
+    /**
+     * Get width
+     *
+     * @return float
+     */
+    public function getWidth()
+    {
+        return $this->width;
+    }
+
+    /**
+     * Set num1
+     *
+     * @param float $num1
+     *
+     * @return Surface
+     */
+    public function setNum1($num1)
+    {
+        $this->num1 = $num1;
+
+        return $this;
+    }
+
+    /**
+     * Get num1
+     *
+     * @return float
+     */
+    public function getNum1()
+    {
+        return $this->num1;
+    }
+
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     *
+     * @return Surface
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+
+
+
+
+
+    /**
+     * Set surfaceName
+     *
+     * @param \AppBundle\Entity\SurfaceName $surfaceName
+     *
+     * @return Surface
+     */
+    public function setSurfaceName(\AppBundle\Entity\SurfaceName $surfaceName = null)
+    {
+        $this->surfaceName = $surfaceName;
+
+        return $this;
+    }
+
+    /**
+     * Get surfaceName
+     *
+     * @return \AppBundle\Entity\SurfaceName
+     */
+    public function getSurfaceName()
+    {
+        return $this->surfaceName;
+    }
+
+    /**
+     * Set deduction
+     *
+     * @param string $deduction
+     *
+     * @return Surface
+     */
+    public function setDeduction($deduction)
+    {
+        $this->deduction = $deduction;
+
+        return $this;
+    }
+
+    /**
+     * Get deduction
+     *
+     * @return string
+     */
+    public function getDeduction()
+    {
+        return $this->deduction;
+    }
+
+    /**
+     * Set rate
+     *
+     * @param float $rate
+     *
+     * @return Surface
+     */
+    public function setRate($rate)
+    {
+        $this->rate = $rate;
+
+        return $this;
+    }
+
+    /**
+     * Get rate
+     *
+     * @return float
+     */
+    public function getRate()
+    {
+        return $this->rate;
+    }
+
+    /**
+     * Set surfaceTotal
+     *
+     * @param float $surfaceTotal
+     *
+     * @return Surface
+     */
+    public function setSurfaceTotal()
+    {
+        if(($this->getNum1() <> 0)){
+            $this->surfaceTotal = $this->getHeight() * $this->getWidth() * $this->getNum1() * $this->getRate();
+        }else{
+            $this->surfaceTotal = $this->getHeight() * $this->getWidth()  * $this->getRate();
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get surfaceTotal
+     *
+     * @return float
+     */
+    public function getSurfaceTotal()
+    {
+        return $this->surfaceTotal;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \AppBundle\Entity\User $user
+     *
+     * @return Surface
+     */
+    public function setUser(\AppBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set area
+     *
+     * @param \AppBundle\Entity\Area $area
+     *
+     * @return Surface
+     */
+    public function setArea(\AppBundle\Entity\Area $area = null)
+    {
+        $this->area = $area;
+
+        return $this;
+    }
+
+    /**
+     * Get area
+     *
+     * @return \AppBundle\Entity\Area
+     */
+    public function getArea()
+    {
+        return $this->area;
+    }
+}

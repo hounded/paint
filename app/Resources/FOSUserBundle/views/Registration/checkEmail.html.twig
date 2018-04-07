@@ -1,0 +1,21 @@
+{% extends 'AvanzuAdminThemeBundle:layout:login-layout.html.twig' %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block avanzu_login_box_msg %}
+
+{% endblock %}
+
+{% block avanzu_login_form %}
+    <p>{{ 'registration.check_email'|trans({'%email%': user.email}) }}</p>
+{% endblock avanzu_login_form %}
+
+{% block avanzu_login_social_auth %}
+
+{% endblock %}
+
+{% block avanzu_login_actions %}
+    <a  href="{{ path('fos_user_security_login') }}"  class="text-center">Login</a><br>
+    <a href="{{ path("fos_user_registration_register") }}">Register a new membership</a>
+
+{% endblock %}

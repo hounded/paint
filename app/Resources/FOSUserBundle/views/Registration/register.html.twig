@@ -1,0 +1,24 @@
+{% extends 'AvanzuAdminThemeBundle:layout:login-layout.html.twig' %}
+{% block avanzu_login_box_msg %}
+    {% if not form.vars.valid %}
+        <div class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+            </button>
+            {{ form_errors(form.username) }}
+            {{ form_errors(form.email) }}
+            {{ form_errors(form.plainPassword.first) }}
+        </div>
+    {% endif %}
+{% endblock %}
+{% block avanzu_login_form %}
+{% include "FOSUserBundle:Registration:register_content.html.twig" %}
+{% endblock avanzu_login_form %}
+{% block avanzu_login_social_auth %}
+
+{% endblock %}
+
+{% block avanzu_login_actions %}
+ <a  href="{{ path('fos_user_security_login') }}"  class="text-center">Login</a><br>
+ <a href="{{ path("fos_user_resetting_request") }}">I forgot my password</a>
+
+{% endblock %}

@@ -1,0 +1,318 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+/**
+ * Item
+ *
+ * @ORM\Table(name="item")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ItemRepository")
+ */
+class Item
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="nsId", type="integer")
+     */
+    private $nsId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255)
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="displayName", type="string", length=255,nullable=true)
+     */
+    private $displayName;
+
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="string", length=255,nullable=true)
+     */
+    private $description;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="basePrice", type="string", length=255,nullable=true)
+     */
+    private $basePrice;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="inventoryType", type="string", length=255,nullable=false)
+     */
+    private $inventoryType;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="OrderItems", mappedBy="item")
+     */
+    private $orderItems;
+
+    /**
+     * @ORM\OneToMany(targetEntity="OrderItemsStanding", mappedBy="item")
+     */
+    private $orderItemsStanding;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->orderItems = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+
+    public function __toString()
+    {
+        return $this->name.' '.$this->displayName;
+    }
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Item
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set displayName
+     *
+     * @param string $displayName
+     *
+     * @return Item
+     */
+    public function setDisplayName($displayName)
+    {
+        $this->displayName = $displayName;
+
+        return $this;
+    }
+
+    /**
+     * Get displayName
+     *
+     * @return string
+     */
+    public function getDisplayName()
+    {
+        return $this->displayName;
+    }
+
+
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Item
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set basePrice
+     *
+     * @param string $basePrice
+     *
+     * @return Item
+     */
+    public function setBasePrice($basePrice)
+    {
+        $this->basePrice = $basePrice;
+
+        return $this;
+    }
+
+    /**
+     * Get basePrice
+     *
+     * @return string
+     */
+    public function getBasePrice()
+    {
+        return $this->basePrice;
+    }
+
+
+    /**
+     * Add orderItem
+     *
+     * @param \AppBundle\Entity\OrderItems $orderItem
+     *
+     * @return Item
+     */
+    public function addOrderItem(\AppBundle\Entity\OrderItems $orderItem)
+    {
+        $this->orderItems[] = $orderItem;
+
+        return $this;
+    }
+
+    /**
+     * Remove orderItem
+     *
+     * @param \AppBundle\Entity\OrderItems $orderItem
+     */
+    public function removeOrderItem(\AppBundle\Entity\OrderItems $orderItem)
+    {
+        $this->orderItems->removeElement($orderItem);
+    }
+
+    /**
+     * Get orderItems
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOrderItems()
+    {
+        return $this->orderItems;
+    }
+
+    /**
+     * Set nsId
+     *
+     * @param integer $nsId
+     *
+     * @return Item
+     */
+    public function setNsId($nsId)
+    {
+        $this->nsId = $nsId;
+
+        return $this;
+    }
+
+    /**
+     * Get nsId
+     *
+     * @return integer
+     */
+    public function getNsId()
+    {
+        return $this->nsId;
+    }
+
+    /**
+     * Set inventoryType
+     *
+     * @param string $inventoryType
+     *
+     * @return Item
+     */
+    public function setInventoryType($inventoryType)
+    {
+        $this->inventoryType = $inventoryType;
+
+        return $this;
+    }
+
+    /**
+     * Get inventoryType
+     *
+     * @return string
+     */
+    public function getInventoryType()
+    {
+        return $this->inventoryType;
+    }
+
+    /**
+     * Add orderItemsStanding
+     *
+     * @param \AppBundle\Entity\OrderItemsStanding $orderItemsStanding
+     *
+     * @return Item
+     */
+    public function addOrderItemsStanding(\AppBundle\Entity\OrderItemsStanding $orderItemsStanding)
+    {
+        $this->orderItemsStanding[] = $orderItemsStanding;
+
+        return $this;
+    }
+
+    /**
+     * Remove orderItemsStanding
+     *
+     * @param \AppBundle\Entity\OrderItemsStanding $orderItemsStanding
+     */
+    public function removeOrderItemsStanding(\AppBundle\Entity\OrderItemsStanding $orderItemsStanding)
+    {
+        $this->orderItemsStanding->removeElement($orderItemsStanding);
+    }
+
+    /**
+     * Get orderItemsStanding
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOrderItemsStanding()
+    {
+        return $this->orderItemsStanding;
+    }
+}

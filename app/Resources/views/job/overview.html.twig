@@ -1,0 +1,113 @@
+{% extends 'AvanzuAdminThemeBundle:layout:default-layout.html.twig' %}
+{% block avanzu_page_title %}
+    {#{{ dump(job) }}#}
+
+  Job
+{% endblock %}
+{% block avanzu_page_content %}
+
+
+
+<div class="row">
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-aqua">
+            <div class="inner">
+                <h3>{{ areas|length }}</h3>
+
+                <p>Areas</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-home"></i>
+            </div>
+            <a href="{{ path('area_creation',{'id':job.id}) }}" class="small-box-footer">
+                More info <i class="fa fa-arrow-circle-right"></i>
+            </a>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-aqua">
+            <div class="inner">
+                <h3>{{ additionalitems|length }}</h3>
+
+                <p>Additional Items</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-ios-pricetags-outline"></i>
+            </div>
+            <a href="{{ path('additionalitems_creation',{'id':job.id}) }}" class="small-box-footer">
+                More info <i class="fa fa-arrow-circle-right"></i>
+            </a>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-aqua">
+            <div class="inner">
+                <h3>0</h3>
+
+                <p>Invoices</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-document-text"></i>
+            </div>
+            <a href="#" class="small-box-footer">
+                More info <i class="fa fa-arrow-circle-right"></i>
+            </a>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-aqua">
+            <div class="inner">
+                <h3>0</h3>
+
+                <p>Other</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+            </div>
+            <a href="#" class="small-box-footer">
+                More info <i class="fa fa-arrow-circle-right"></i>
+            </a>
+        </div>
+    </div>
+    <!-- ./col -->
+</div>
+    <div class="row">
+        <div class="col-md-6">
+            {% include ':job:stats.html.twig' %}
+        </div>
+        <div class="col-md-6">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Total area for each surface type</h3>
+
+
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+
+                    <ul class="nav nav-pills nav-stacked">
+                        {% for sa in sAreas %}
+                        <li><a href="#">{{sa.name  }}
+                                <span class="pull-right text-green"> {{ sa.1 }} m<sup>2</sup> </span>
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer no-padding">
+
+                </div>
+                <!-- /.footer -->
+            </div>
+        </div>
+    </div>
+{% endblock %}

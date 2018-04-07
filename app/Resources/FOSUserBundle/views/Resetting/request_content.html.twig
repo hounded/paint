@@ -1,0 +1,36 @@
+
+
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block avanzu_login_form %}
+
+
+
+            <p class="login-box-msg">Request a password Reset</p>
+
+            <form action="{{ path('fos_user_resetting_send_email') }}" method="POST">
+
+                <div class="form-group has-feedback">
+                    <input id="username" name="username" class="form-control" type="text" placeholder="Email or Username"  required="required"  />
+                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                </div>
+
+                    <div class="row">
+                        <div class="col-xs-8">
+
+                        </div><!-- /.col -->
+                        <div class="col-xs-4">
+                            <button type="submit" id="_submit"  name="_submit" class="btn btn-primary btn-block btn-flat pull-right"  value="{{ 'security.login.submit'|trans }}">Reset</button>
+                        </div><!-- /.col -->
+                    </div>
+
+            </form>
+
+
+
+
+
+
+
+{% endblock %}

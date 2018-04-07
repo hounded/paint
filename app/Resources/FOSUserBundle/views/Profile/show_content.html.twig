@@ -1,0 +1,54 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+
+<div id="wrapper">
+    {#<div class="row">#}
+        {#<div class="col-lg-6 col-xs-6">#}
+            {#<div class="small-box bg-green">#}
+                {#<div class="inner">#}
+                    {#<h3>1</h3>#}
+                    {#<p>Traffic Audits</p>#}
+                {#</div>#}
+                {#<div class="icon">#}
+                    {#<i class="fa fa-road"></i>#}
+                {#</div>#}
+                {#<a class="small-box-footer" href="#">#}
+                    {#More info#}
+                    {#<i class="fa fa-arrow-circle-right"></i>#}
+                {#</a>#}
+            {#</div>#}
+        {#</div>#}
+        {#<div class="col-lg-6 col-xs-6">#}
+            {#<div class="small-box bg-yellow">#}
+                {#<div class="inner">#}
+                    {#<h3>2</h3>#}
+                    {#<p>Safety Audits</p>#}
+                {#</div>#}
+                {#<div class="icon">#}
+                    {#<i class="fa fa-medkit"></i>#}
+                {#</div>#}
+                {#<a class="small-box-footer" href="#">#}
+                    {#More info#}
+                    {#<i class="fa fa-arrow-circle-right"></i>#}
+                {#</a>#}
+            {#</div>#}
+        {#</div>#}
+    {#</div>#}
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-user"> </i><span class="text-capitalize"> {{ user.username }}</span>
+
+                </div>
+                <div class="panel-body">
+                    <a href="{{ path('fos_user_profile_edit') }}" class="btn btn-sm btn-primary pull-right" > <i class="fa fa-pencil"> </i></a>
+                    <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
+                    <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

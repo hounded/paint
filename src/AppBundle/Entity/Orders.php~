@@ -1,0 +1,522 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Orders
+ *
+ * @ORM\Table(name="orders")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\OrdersRepository")
+ */
+class Orders
+{
+
+    const ORDERED = 'ordered';
+    const COMPLETE = 'completed';
+    const APPROVED = 'approved';
+    const DISPATCHED = 'dispatched';
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="nsInvoiceId", type="integer",nullable=true)
+     */
+    private $nsInvoiceId;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="orders")
+     * @ORM\JoinColumn(name="user", referencedColumnName="id")
+     */
+    private $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Customers", inversedBy="orders")
+     * @ORM\JoinColumn(name="customer", referencedColumnName="id",nullable=false)
+     */
+    private $customer;
+
+    /**
+     * @ORM\OneToMany(targetEntity="OrderItems", mappedBy="orders")
+     */
+    private $orderItems;
+
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="Runs", inversedBy="orders")
+     * @ORM\JoinColumn(name="run", referencedColumnName="id",nullable=false)
+     */
+    private $run;
+
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dispatchDate", type="date")
+     */
+    protected $dispatchDate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="orderTime", type="datetime",nullable=true)
+     */
+    private $orderTime;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="customerPO", type="string", length=256, nullable=true)
+     */
+    private $customerPO;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="dispatchedBy", type="string", length=256, nullable=true)
+     */
+    private $DispatchedBy;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="reorder", type="boolean", nullable=true)
+     */
+    private $reorder;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="OrdersStanding", inversedBy="orders")
+     * @ORM\JoinColumn(name="ordersStanding", referencedColumnName="id",nullable=true,onDelete="SET NULL")
+     */
+    private $ordersStanding;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="frequency", type="integer", nullable=true)
+     */
+    private $frequency;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="notes", type="string", length=1000, nullable=true)
+     */
+    private $notes;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="dispatchedItems", type="array", nullable=true)
+     */
+    private $dispatchedItems;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="status", type="string", length=256, nullable=true)
+     */
+    private $status;
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+
+    public function __toString(){
+        return $this->getDispatchDate()->format('Y-m-d').' - '.$this->getRun()->getName().' - '.$this->getCustomer()->getName();
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->orderItems = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set user
+     *
+     * @param \AppBundle\Entity\User $user
+     *
+     * @return Orders
+     */
+    public function setUser(\AppBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set customer
+     *
+     * @param \AppBundle\Entity\Customers $customer
+     *
+     * @return Orders
+     */
+    public function setCustomer(\AppBundle\Entity\Customers $customer = null)
+    {
+        $this->customer = $customer;
+
+        return $this;
+    }
+
+    /**
+     * Get customer
+     *
+     * @return \AppBundle\Entity\Customers
+     */
+    public function getCustomer()
+    {
+        return $this->customer;
+    }
+
+    /**
+     * Add orderItem
+     *
+     * @param \AppBundle\Entity\OrderItems $orderItem
+     *
+     * @return Orders
+     */
+    public function addOrderItem(\AppBundle\Entity\OrderItems $orderItem)
+    {
+        $this->orderItems[] = $orderItem;
+
+        return $this;
+    }
+
+    /**
+     * Remove orderItem
+     *
+     * @param \AppBundle\Entity\OrderItems $orderItem
+     */
+    public function removeOrderItem(\AppBundle\Entity\OrderItems $orderItem)
+    {
+        $this->orderItems->removeElement($orderItem);
+    }
+
+    /**
+     * Get orderItems
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOrderItems()
+    {
+        return $this->orderItems;
+    }
+
+    /**
+     * Set run
+     *
+     * @param \AppBundle\Entity\Runs $run
+     *
+     * @return Orders
+     */
+    public function setRun(\AppBundle\Entity\Runs $run = null)
+    {
+        $this->run = $run;
+
+        return $this;
+    }
+
+    /**
+     * Get run
+     *
+     * @return \AppBundle\Entity\Runs
+     */
+    public function getRun()
+    {
+        return $this->run;
+    }
+
+    /**
+     * Set dispatchDate
+     *
+     * @param \DateTime $dispatchDate
+     *
+     * @return Orders
+     */
+    public function setDispatchDate($dispatchDate)
+    {
+        $this->dispatchDate = $dispatchDate;
+
+        return $this;
+    }
+
+    /**
+     * Get dispatchDate
+     *
+     * @return \DateTime
+     */
+    public function getDispatchDate()
+    {
+        return $this->dispatchDate;
+    }
+
+    /**
+     * Set nsInvoiceId
+     *
+     * @param integer $nsInvoiceId
+     *
+     * @return Orders
+     */
+    public function setNsInvoiceId($nsInvoiceId)
+    {
+        $this->nsInvoiceId = $nsInvoiceId;
+
+        return $this;
+    }
+
+    /**
+     * Get nsInvoiceId
+     *
+     * @return integer
+     */
+    public function getNsInvoiceId()
+    {
+        return $this->nsInvoiceId;
+    }
+
+    /**
+     * Set orderTime
+     *
+     * @param \DateTime $orderTime
+     *
+     * @return Orders
+     */
+    public function setOrderTime($orderTime)
+    {
+        $this->orderTime = $orderTime;
+
+        return $this;
+    }
+
+    /**
+     * Get orderTime
+     *
+     * @return \DateTime
+     */
+    public function getOrderTime()
+    {
+        return $this->orderTime;
+    }
+
+    /**
+     * Set customerPO
+     *
+     * @param string $customerPO
+     *
+     * @return Orders
+     */
+    public function setCustomerPO($customerPO)
+    {
+        $this->customerPO = $customerPO;
+
+        return $this;
+    }
+
+    /**
+     * Get customerPO
+     *
+     * @return string
+     */
+    public function getCustomerPO()
+    {
+        return $this->customerPO;
+    }
+
+    /**
+     * Set reorder
+     *
+     * @param boolean $reorder
+     *
+     * @return Orders
+     */
+    public function setReorder($reorder)
+    {
+        $this->reorder = $reorder;
+
+        return $this;
+    }
+
+    /**
+     * Get reorder
+     *
+     * @return boolean
+     */
+    public function getReorder()
+    {
+        return $this->reorder;
+    }
+
+    /**
+     * Set frequency
+     *
+     * @param integer $frequency
+     *
+     * @return Orders
+     */
+    public function setFrequency($frequency)
+    {
+        $this->frequency = $frequency;
+
+        return $this;
+    }
+
+    /**
+     * Get frequency
+     *
+     * @return integer
+     */
+    public function getFrequency()
+    {
+        return $this->frequency;
+    }
+
+    /**
+     * Set notes
+     *
+     * @param string $notes
+     *
+     * @return Orders
+     */
+    public function setNotes($notes)
+    {
+        $this->notes = $notes;
+
+        return $this;
+    }
+
+    /**
+     * Get notes
+     *
+     * @return string
+     */
+    public function getNotes()
+    {
+        return $this->notes;
+    }
+
+    /**
+     * Set dispatchedItems
+     *
+     * @param array $dispatchedItems
+     *
+     * @return Orders
+     */
+    public function setDispatchedItems($dispatchedItems)
+    {
+        $this->dispatchedItems = $dispatchedItems;
+
+        return $this;
+    }
+
+    /**
+     * Get dispatchedItems
+     *
+     * @return array
+     */
+    public function getDispatchedItems()
+    {
+        return $this->dispatchedItems;
+    }
+
+    /**
+     * Set status
+     *
+     * @param string $status
+     *
+     * @return Orders
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * Set dispatchedBy
+     *
+     * @param string $dispatchedBy
+     *
+     * @return Orders
+     */
+    public function setDispatchedBy($dispatchedBy)
+    {
+        $this->DispatchedBy = $dispatchedBy;
+
+        return $this;
+    }
+
+    /**
+     * Get dispatchedBy
+     *
+     * @return string
+     */
+    public function getDispatchedBy()
+    {
+        return $this->DispatchedBy;
+    }
+
+    /**
+     * Set ordersStanding
+     *
+     * @param \AppBundle\Entity\OrdersStanding $ordersStanding
+     *
+     * @return Orders
+     */
+    public function setOrdersStanding(\AppBundle\Entity\OrdersStanding $ordersStanding = null)
+    {
+        $this->ordersStanding = $ordersStanding;
+
+        return $this;
+    }
+
+    /**
+     * Get ordersStanding
+     *
+     * @return \AppBundle\Entity\OrdersStanding
+     */
+    public function getOrdersStanding()
+    {
+        return $this->ordersStanding;
+    }
+}

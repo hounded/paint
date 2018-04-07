@@ -1,0 +1,147 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * AreaName
+ *
+ * @ORM\Table(name="area_name")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\AreaNameRepository")
+ */
+class AreaName
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Area", mappedBy="areaName")
+     */
+    private $area;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Name", type="string", length=255, nullable=true)
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Rate", type="string", length=255, nullable=true)
+     */
+    private $rate;
+
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return AreaName
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set rate
+     *
+     * @param string $rate
+     *
+     * @return AreaName
+     */
+    public function setRate($rate)
+    {
+        $this->rate = $rate;
+
+        return $this;
+    }
+
+    /**
+     * Get rate
+     *
+     * @return string
+     */
+    public function getRate()
+    {
+        return $this->rate;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->area = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add area
+     *
+     * @param \AppBundle\Entity\Area $area
+     *
+     * @return AreaName
+     */
+    public function addArea(\AppBundle\Entity\Area $area)
+    {
+        $this->area[] = $area;
+
+        return $this;
+    }
+
+    /**
+     * Remove area
+     *
+     * @param \AppBundle\Entity\Area $area
+     */
+    public function removeArea(\AppBundle\Entity\Area $area)
+    {
+        $this->area->removeElement($area);
+    }
+
+    /**
+     * Get area
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getArea()
+    {
+        return $this->area;
+    }
+}

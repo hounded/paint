@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Area</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ surface.id }}</td>
+            </tr>
+            <tr>
+                <th>Height</th>
+                <td>{{ surface.height }}</td>
+            </tr>
+            <tr>
+                <th>Width</th>
+                <td>{{ surface.width }}</td>
+            </tr>
+            <tr>
+                <th>Num1</th>
+                <td>{{ surface.num1 }}</td>
+            </tr>
+            <tr>
+                <th>Num2</th>
+                <td>{{ surface.num2 }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ surface.type }}</td>
+            </tr>
+            <tr>
+                <th>Area</th>
+                <td>{{ surface.surface }}</td>
+            </tr>
+            <tr>
+                <th>Location</th>
+                <td>{{ surface.location }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('surface_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('surface_edit', { 'id': surface.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

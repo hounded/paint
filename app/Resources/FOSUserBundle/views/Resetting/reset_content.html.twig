@@ -1,0 +1,36 @@
+
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block page_content %}
+
+
+
+            <p class="login-box-msg">Reset your password</p>
+
+            {#<form action="{{ path('fos_user_resetting_send_email') }}" method="POST">#}
+
+                {#<div class="form-group has-feedback">#}
+                    {#<input id="username" name="username" class="form-control" type="text" placeholder="Email or Username"  required="required"  />#}
+                    {#<span class="glyphicon glyphicon-user form-control-feedback"></span>#}
+                {#</div>#}
+                {#<div class="row">#}
+                    {#<div class="off col-xs-4">#}
+                        {#<button type="submit" id="_submit"  name="_submit"  value="{{ 'security.login.submit'|trans }}">Reset</button>#}
+                    {#</div><!-- /.col -->#}
+                {#</div>#}
+            {#</form>#}
+            {{ form_start(form, { 'action': path('fos_user_resetting_reset', {'token': token}), 'attr': { 'class': 'fos_user_resetting_reset' } }) }}
+            {{ form_widget(form) }}
+            <div>
+
+                <button type="submit" class="btn btn-primary btn-block btn-flat pull-right"  value="{{ 'resetting.reset.submit'|trans }}">Reset</button>
+            </div>
+            {{ form_end(form) }}
+
+
+
+
+
+
+{% endblock %}

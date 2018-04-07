@@ -1,0 +1,32 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/book/service_container.html
+parameters:
+#    parameter_name: value
+
+services:
+#    service_name:
+#        class: AppBundle\Directory\ClassName
+#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+
+    app.utils.calculations:
+      class: AppBundle\Utils\Calculations
+      arguments: ['@doctrine.orm.entity_manager']
+
+    paint.knp_menu_listener:
+        class: AppBundle\EventListener\KnpMenuListener
+        arguments: ['@service_container']
+        tags:
+            - { name: kernel.event_listener, event: theme.sidebar_setup_knp_menu, method: onSetupKnpMenu }
+
+    paint.navbar_user_listener:
+        class: AppBundle\EventListener\NavbarShowUserListener
+        tags:
+            - { name: kernel.event_listener, event: theme.navbar_user, method: onShowUser }
+            - { name: kernel.event_listener, event: theme.sidebar_user, method: onShowUser }
+
+    fos_user.registration_listner:
+        class: AppBundle\EventListener\RegistrationListener
+        arguments: ['@router']
+        tags:
+          - { name: kernel.event_subscriber }
+

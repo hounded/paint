@@ -1,0 +1,88 @@
+{% extends 'templates/table.html.twig' %}
+{% block avanzu_page_title %} Jobs {% endblock %}
+{% block new %}
+    <a class="btn btn-success" href="{{ path('job_new') }}">New Job</a>
+    <div style="padding-bottom: 15px;"></div>
+{% endblock new %}
+{% block head %}
+    <tr>
+
+        <th>Customer</th>
+        <th>Cost Areas</th>
+        <th>Cost Additional Items</th>
+        <th>Cost</th>
+
+        {#<th>Actions</th>#}
+    </tr>
+{% endblock head %}
+
+{% block body %}
+    {% for job in jobs %}
+        <tr class='clickable-row' data-href='{{ path('job_overview', { 'id': job.id }) }}' >
+            {#<td><a href="{{ path('job_overview', { 'id': job.id }) }}">{{ job.id }}</a></td>#}
+            <td>{{ job.customer }}</td>
+            <td>{{ job.costareas }}</td>
+            <td>{{ job.costadditionalitems }}</td>
+            <td>{{ job.cost }}</td>
+            {#<td>#}
+                {#<ul>#}
+                    {#<li>#}
+                        {#<a href="{{ path('job_show', { 'id': job.id }) }}">show</a>#}
+                    {#</li>#}
+                    {#<li>#}
+                        {#<a href="{{ path('job_edit', { 'id': job.id }) }}">edit</a>#}
+                    {#</li>#}
+                {#</ul>#}
+            {#</td>#}
+        </tr>
+    {% endfor %}
+{% endblock body %}
+
+
+{#{% extends 'base.html.twig' %}#}
+
+{#{% block body %}#}
+    {#<h1>Job list</h1>#}
+
+    {#<table>#}
+        {#<thead>#}
+            {#<tr>#}
+                {#<th>Id</th>#}
+                {#<th>Customer</th>#}
+                {#<th>Primerrate</th>#}
+                {#<th>Toprate</th>#}
+                {#<th>Costm2</th>#}
+                {#<th>Costlinm</th>#}
+                {#<th>Actions</th>#}
+            {#</tr>#}
+        {#</thead>#}
+        {#<tbody>#}
+        {#{% for job in jobs %}#}
+            {#<tr>#}
+                {#<td><a href="{{ path('job_show', { 'id': job.id }) }}">{{ job.id }}</a></td>#}
+                {#<td>{{ job.customer }}</td>#}
+                {#<td>{{ job.primerRate }}</td>#}
+                {#<td>{{ job.topRate }}</td>#}
+                {#<td>{{ job.costM2 }}</td>#}
+                {#<td>{{ job.costLinM }}</td>#}
+                {#<td>#}
+                    {#<ul>#}
+                        {#<li>#}
+                            {#<a href="{{ path('job_show', { 'id': job.id }) }}">show</a>#}
+                        {#</li>#}
+                        {#<li>#}
+                            {#<a href="{{ path('job_edit', { 'id': job.id }) }}">edit</a>#}
+                        {#</li>#}
+                    {#</ul>#}
+                {#</td>#}
+            {#</tr>#}
+        {#{% endfor %}#}
+        {#</tbody>#}
+    {#</table>#}
+
+    {#<ul>#}
+        {#<li>#}
+            {#<a href="{{ path('job_new') }}">Create a new entry</a>#}
+        {#</li>#}
+    {#</ul>#}
+{#{% endblock %}#}

@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Additionalitems list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Rate</th>
+                <th>Multi</th>
+                <th>Total</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for additionalItem in additionalItems %}
+            <tr>
+                <td><a href="{{ path('additionalitems_show', { 'id': additionalItem.id }) }}">{{ additionalItem.id }}</a></td>
+                <td>{{ additionalItem.description }}</td>
+                <td>{{ additionalItem.type }}</td>
+                <td>{{ additionalItem.rate }}</td>
+                <td>{{ additionalItem.multi }}</td>
+                <td>{{ additionalItem.total }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('additionalitems_show', { 'id': additionalItem.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('additionalitems_edit', { 'id': additionalItem.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('additionalitems_new') }}">Create a new additionalItem</a>
+        </li>
+    </ul>
+{% endblock %}

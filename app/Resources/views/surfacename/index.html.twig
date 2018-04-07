@@ -1,0 +1,41 @@
+{% extends 'AvanzuAdminThemeBundle:layout:default-layout.html.twig' %}
+{% block avanzu_page_title %}DataTable{% endblock %}
+{% block avanzu_page_content %}
+    <h1>Areanames list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Rate</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for surfaceName in surfaceNames %}
+            <tr>
+                <td><a href="{{ path('surfacename_show', { 'id': surfaceName.id }) }}">{{ surfaceName.id }}</a></td>
+                <td>{{ surfaceName.name }}</td>
+                <td>{{ surfaceName.rate }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('surfacename_show', { 'id': surfaceName.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('surfacename_edit', { 'id': surfaceName.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('surfacename_new') }}">Create a new surfaceName</a>
+        </li>
+    </ul>
+{% endblock %}
